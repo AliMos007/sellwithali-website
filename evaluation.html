@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Request your complimentary home evaluation with Ali Mosadeq — RE/MAX Hallmark Broker in Vaughan & GTA. 10+ years, $100M+ in sales.">
+  <title>Complimentary Home Evaluation | Ali Mosadeq | Vaughan & GTA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Evaluation-page overrides ── */
+    .eval-hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .eval-hero__left {
+      background: var(--deep-blue);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(8rem, 12vw, 10rem) clamp(3rem, 6vw, 6rem) clamp(5rem, 8vw, 6rem) clamp(2rem, 6vw, 5rem);
+      clip-path: polygon(0 0, 100% 0, calc(100% - 60px) 100%, 0 100%);
+      z-index: 1;
+    }
+    .eval-hero__left .eyebrow { color: var(--gold); }
+    .eval-hero__left h1 {
+      color: var(--white);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1.05;
+      margin: 0 0 1.5rem;
+    }
+    .eval-hero__left h1 em { color: var(--gold); font-style: normal; }
+    .eval-hero__left p {
+      color: rgba(255,255,255,0.72);
+      font-size: 1.0625rem;
+      margin: 0 0 2.5rem;
+      max-width: 42ch;
+    }
+    .eval-hero__right {
+      position: relative;
+      margin-left: -60px;
+    }
+    .eval-hero__right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .eval-hero__badge {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 2.5rem;
+      width: 90px;
+      opacity: 0.9;
+    }
+    .eval-hero__badge img { width: 100%; }
+
+    /* ── What You'll Receive ── */
+    .eval-receive {
+      padding: clamp(5rem, 9vw, 8rem) 0;
+      background: var(--off-white);
+    }
+    .eval-receive__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--rule-grey);
+      margin-top: 4rem;
+    }
+    .eval-item {
+      padding: 3rem 2.5rem;
+      border-right: 1px solid var(--rule-grey);
+      border-bottom: 1px solid var(--rule-grey);
+      transition: background 0.25s;
+    }
+    .eval-item:nth-child(3n) { border-right: none; }
+    .eval-item:nth-last-child(-n+3) { border-bottom: none; }
+    .eval-item:hover { background: var(--white); }
+    .eval-item__num {
+      font-family: var(--heading);
+      font-size: 3.5rem;
+      font-weight: 200;
+      color: var(--gold);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 1.25rem;
+    }
+    .eval-item h3 {
+      font-size: 0.95rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--charcoal);
+      margin: 0 0 1rem;
+    }
+    .eval-item p {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--mid-grey);
+      margin: 0;
+    }
+
+    /* ── Dark form panel ── */
+    .eval-form-section {
+      background: var(--deep-blue);
+      padding: clamp(5rem, 9vw, 8rem) 0;
+    }
+    .eval-form-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: start;
+    }
+    .eval-form-copy h2 { color: var(--white); font-size: clamp(2rem, 3.5vw, 3rem); }
+    .eval-form-copy p { color: rgba(255,255,255,0.65); margin: 0 0 2rem; }
+    .eval-form-copy .gold-rule { margin: 14px 0 28px 0; }
+
+    .eval-trust-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .eval-trust-list li {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.55);
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .eval-trust-list li::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .eval-form-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 3rem;
+    }
+    .eval-form-card .form__group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .eval-form-card .form__group--full { grid-column: 1 / -1; }
+    .eval-form-card label {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 0.5rem;
+    }
+    .eval-form-card input,
+    .eval-form-card select,
+    .eval-form-card textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white);
+      font-family: var(--body);
+      font-size: 0.95rem;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+    .eval-form-card input::placeholder,
+    .eval-form-card textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .eval-form-card input:focus,
+    .eval-form-card select:focus,
+    .eval-form-card textarea:focus { border-color: var(--gold); }
+    .eval-form-card select option { background: var(--deep-blue); color: var(--white); }
+    .eval-form-card textarea { resize: vertical; min-height: 100px; }
+    .eval-form-card .btn--gold {
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.5rem;
+      font-size: 0.78rem;
+      padding: 1.1rem 2rem;
+    }
+
+    .eval-form-success {
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    .eval-form-success .success-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .eval-form-success h3 {
+      color: var(--white);
+      font-size: 1.4rem;
+      font-weight: 200;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    .eval-form-success p { color: rgba(255,255,255,0.6); font-size: 0.95rem; }
+
+    /* ── Process steps ── */
+    .eval-process {
+      padding: clamp(5rem, 9vw, 8rem) 0;
+      background: var(--white);
+    }
+    .eval-process__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 4rem;
+      border-top: 1px solid var(--rule-grey);
+    }
+    .process-step {
+      padding: 2.5rem 2rem 2.5rem 0;
+      border-right: 1px solid var(--rule-grey);
+      padding-right: 2rem;
+    }
+    .process-step:last-child { border-right: none; padding-right: 0; }
+    .process-step__num {
+      font-family: var(--heading);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .process-step h3 {
+      font-size: 1rem;
+      font-weight: 200;
+      letter-spacing: 0.1em;
+      color: var(--charcoal);
+      margin: 0 0 0.75rem;
+    }
+    .process-step p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--mid-grey);
+      margin: 0;
+    }
+
+    /* ── Bio section ── */
+    .eval-bio {
+      padding: clamp(5rem, 9vw, 8rem) 0;
+      background: var(--light-bg);
+    }
+    .eval-bio__wrap {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: center;
+    }
+    .eval-bio__photo {
+      position: relative;
+    }
+    .eval-bio__photo img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+    .eval-bio__photo::after {
+      content: '';
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      width: 60%;
+      height: 60%;
+      border: 1px solid var(--gold);
+      z-index: -1;
+    }
+    .eval-bio__copy h2 { font-size: clamp(2rem, 3vw, 2.8rem); color: var(--charcoal); }
+    .eval-bio__copy .eyebrow { color: var(--gold); }
+    .eval-bio__copy p { color: var(--mid-grey); }
+    .eval-bio__awards {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule-grey);
+      flex-wrap: wrap;
+    }
+    .eval-bio__awards img {
+      height: 48px;
+      object-fit: contain;
+      filter: grayscale(1) brightness(0.4);
+      opacity: 0.65;
+      transition: opacity 0.2s, filter 0.2s;
+    }
+    .eval-bio__awards img:hover { opacity: 1; filter: grayscale(0); }
+
+    /* ── Photo strip ── */
+    .eval-strip {
+      height: 480px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+    .eval-strip__panel {
+      position: relative;
+      overflow: hidden;
+    }
+    .eval-strip__panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .eval-strip__panel:hover img { transform: scale(1.04); }
+    .eval-strip__panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,11,39,0.38);
+    }
+
+    /* ── Footer strip ── */
+    .eval-footer-cta {
+      background: var(--charcoal);
+      padding: 3.5rem 0;
+      text-align: center;
+    }
+    .eval-footer-cta p {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.45);
+      margin: 0;
+      text-transform: uppercase;
+    }
+    .eval-footer-cta a { color: var(--gold); text-decoration: none; }
+    .eval-footer-cta a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .eval-hero { grid-template-columns: 1fr; min-height: auto; }
+      .eval-hero__left {
+        clip-path: none;
+        padding: 8rem 2rem 4rem;
+      }
+      .eval-hero__right { margin-left: 0; height: 55vw; min-height: 300px; }
+      .eval-form-wrap { grid-template-columns: 1fr; }
+      .eval-receive__grid { grid-template-columns: 1fr 1fr; }
+      .eval-item:nth-child(2n) { border-right: none; }
+      .eval-item:nth-child(3n) { border-right: 1px solid var(--rule-grey); }
+      .eval-item:nth-child(3) { border-right: none; }
+      .eval-process__steps { grid-template-columns: repeat(2, 1fr); }
+      .process-step:nth-child(2) { border-right: none; }
+      .eval-bio__wrap { grid-template-columns: 1fr; }
+      .eval-bio__photo { max-width: 320px; }
+      .eval-bio__photo::after { display: none; }
+    }
+    @media (max-width: 640px) {
+      .eval-receive__grid { grid-template-columns: 1fr; }
+      .eval-item { border-right: none; }
+      .eval-process__steps { grid-template-columns: 1fr; }
+      .process-step { border-right: none; border-bottom: 1px solid var(--rule-grey); padding-right: 0; }
+      .process-step:last-child { border-bottom: none; }
+      .eval-form-card { padding: 2rem 1.25rem; }
+      .eval-form-card .form__group { grid-template-columns: 1fr; }
+      .eval-strip { grid-template-columns: 1fr; height: 360px; }
+      .eval-strip__panel:last-child { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <header id="header">
+    <nav class="nav">
+      <a href="index.html" class="nav__logo">
+        <img src="My Business Logo/AM 34 U2 Transparent.png" alt="Ali Mosadeq">
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="index.html#about" class="nav__link">About</a></li>
+        <li><a href="index.html#services" class="nav__link">Services</a></li>
+        <li><a href="index.html#neighbourhoods" class="nav__link">Neighbourhoods</a></li>
+        <li><a href="index.html#resources" class="nav__link">Resources</a></li>
+        <li><a href="index.html#contact" class="nav__link">Contact</a></li>
+        <li class="nav__phone"><a href="tel:6472956950">647 295 6950</a></li>
+      </ul>
+      <a href="#evaluation-form" class="btn btn--gold nav__cta">Get Evaluation</a>
+    </nav>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="eval-hero">
+    <div class="eval-hero__left fade-up">
+      <span class="eyebrow">Complimentary &nbsp;·&nbsp; No Obligation</span>
+      <span class="gold-rule"></span>
+      <h1>Know What Your<br>Home Is <em>Worth.</em></h1>
+      <p>A complimentary, no-pressure evaluation from a broker who has closed $100M+ in sales across Vaughan and the GTA. Delivered to your inbox — at no cost to you.</p>
+      <div class="hero__ctas">
+        <a href="#evaluation-form" class="btn btn--gold">Request My Evaluation</a>
+        <a href="tel:6472956950" class="btn btn--outline" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.8)">Call 647 295 6950</a>
+      </div>
+    </div>
+    <div class="eval-hero__right">
+      <img src="Complimentary Evaluation/WhatsApp Image 2026-05-10 at 3.04.12 PM (2).jpeg" alt="Luxury home evaluation Vaughan">
+      <div class="eval-hero__badge">
+        <img src="Award Logos/hall-of-fame-logo-white-transparent.png" alt="RE/MAX Hall of Fame">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHAT YOU'LL RECEIVE ===================== -->
+  <section class="eval-receive">
+    <div class="container">
+      <div class="section__header fade-up">
+        <span class="eyebrow">Complimentary Report</span>
+        <span class="gold-rule"></span>
+        <h2>What You'll Receive</h2>
+        <p class="section__sub">Every evaluation is personally prepared — no automated estimates, no generic reports.</p>
+      </div>
+
+      <div class="eval-receive__grid">
+
+        <div class="eval-item fade-up">
+          <div class="eval-item__num">01</div>
+          <h3>Comparable Sales Analysis</h3>
+          <p>A hand-selected review of recent sold listings in your immediate area, adjusted for size, condition, upgrades, and lot positioning.</p>
+        </div>
+
+        <div class="eval-item fade-up">
+          <div class="eval-item__num">02</div>
+          <h3>Active Market Competition</h3>
+          <p>A clear picture of what buyers are currently seeing — every competing listing in your neighbourhood that could affect your positioning.</p>
+        </div>
+
+        <div class="eval-item fade-up">
+          <div class="eval-item__num">03</div>
+          <h3>Estimated Value Range</h3>
+          <p>A realistic, defensible price range based on real data — not an inflated number designed to win your listing.</p>
+        </div>
+
+        <div class="eval-item fade-up">
+          <div class="eval-item__num">04</div>
+          <h3>Days-on-Market Insights</h3>
+          <p>Understand how long similar homes are sitting, and what that means for your ideal listing timeline and negotiating position.</p>
+        </div>
+
+        <div class="eval-item fade-up">
+          <div class="eval-item__num">05</div>
+          <h3>Buyer Demand Snapshot</h3>
+          <p>Current buyer activity for your home type and price range — so you know whether demand is accelerating, stable, or softening.</p>
+        </div>
+
+        <div class="eval-item fade-up">
+          <div class="eval-item__num">06</div>
+          <h3>Personalized Strategy Notes</h3>
+          <p>Ali's direct observations on timing, presentation improvements, and the one or two factors that typically move the needle most in your market segment.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FORM ===================== -->
+  <section class="eval-form-section" id="evaluation-form">
+    <div class="container">
+      <div class="eval-form-wrap">
+
+        <div class="eval-form-copy fade-left">
+          <span class="eyebrow" style="color:var(--gold)">No Obligation &nbsp;·&nbsp; Confidential</span>
+          <span class="gold-rule"></span>
+          <h2 style="color:var(--white)">Start With the Truth About Your Home's Value</h2>
+          <p>Fill in a few details and Ali will personally prepare your report — typically delivered within 24 hours.</p>
+          <ul class="eval-trust-list">
+            <li>No pressure, no sales pitch</li>
+            <li>Prepared personally by Ali — not automated</li>
+            <li>Delivered within 24 hours</li>
+            <li>10+ years of Vaughan & GTA expertise</li>
+            <li>$100M+ in career sales volume</li>
+            <li>RE/MAX Hall of Fame &amp; Platinum Club</li>
+          </ul>
+        </div>
+
+        <div class="eval-form-card fade-right">
+          <form id="evalPageForm" data-form="Evaluation Page" novalidate>
+
+            <div class="eval-form-card__fields">
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                <div>
+                  <label for="ep-first">First Name *</label>
+                  <input id="ep-first" type="text" name="firstName" placeholder="Jane" required>
+                </div>
+                <div>
+                  <label for="ep-last">Last Name *</label>
+                  <input id="ep-last" type="text" name="lastName" placeholder="Smith" required>
+                </div>
+              </div>
+
+              <div style="margin-bottom:1rem;">
+                <label for="ep-email">Email Address *</label>
+                <input id="ep-email" type="email" name="email" placeholder="jane@email.com" required>
+              </div>
+
+              <div style="margin-bottom:1rem;">
+                <label for="ep-phone">Phone Number</label>
+                <input id="ep-phone" type="tel" name="phone" placeholder="647 000 0000">
+              </div>
+
+              <div style="margin-bottom:1rem;">
+                <label for="ep-address">Property Address *</label>
+                <input id="ep-address" type="text" name="address" placeholder="123 Main St, Vaughan, ON" required>
+              </div>
+
+              <div style="margin-bottom:1rem;">
+                <label for="ep-timeline">Your Timeline</label>
+                <select id="ep-timeline" name="timeline">
+                  <option value="" disabled selected>Select a timeline…</option>
+                  <option>Just exploring — no rush</option>
+                  <option>Within 3–6 months</option>
+                  <option>Within 1–3 months</option>
+                  <option>As soon as possible</option>
+                </select>
+              </div>
+
+              <div style="margin-bottom:1.5rem;">
+                <label for="ep-notes">Anything else we should know?</label>
+                <textarea id="ep-notes" name="message" placeholder="Renovations, unique features, questions…"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn--gold">Request My Free Evaluation</button>
+            </div>
+
+          </form>
+
+          <div id="evalPageSuccess" class="eval-form-success" hidden>
+            <span class="success-icon">✦</span>
+            <h3>Request Received</h3>
+            <p>Thank you — Ali will personally review your property and follow up within 24 hours.<br><br>
+            In the meantime, feel free to call directly at <a href="tel:6472956950" style="color:var(--gold);text-decoration:none;">647 295 6950</a>.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROCESS ===================== -->
+  <section class="eval-process">
+    <div class="container">
+      <div class="section__header fade-up">
+        <span class="eyebrow">Simple Process</span>
+        <span class="gold-rule"></span>
+        <h2>What Happens Next</h2>
+      </div>
+      <div class="eval-process__steps">
+        <div class="process-step fade-up">
+          <div class="process-step__num">STEP 01</div>
+          <h3>Submit Your Request</h3>
+          <p>Fill in the form above with your property details and preferred timeline.</p>
+        </div>
+        <div class="process-step fade-up">
+          <div class="process-step__num">STEP 02</div>
+          <h3>Ali Reviews Your Property</h3>
+          <p>A personally prepared analysis of comparable sales, active competition, and market trends.</p>
+        </div>
+        <div class="process-step fade-up">
+          <div class="process-step__num">STEP 03</div>
+          <h3>Receive Your Report</h3>
+          <p>Your evaluation lands in your inbox within 24 hours — clear, honest, and actionable.</p>
+        </div>
+        <div class="process-step fade-up">
+          <div class="process-step__num">STEP 04</div>
+          <h3>Decide at Your Pace</h3>
+          <p>No pressure, no obligation. This is your information — do with it what you choose.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PHOTO STRIP ===================== -->
+  <div class="eval-strip">
+    <div class="eval-strip__panel">
+      <img src="Complimentary Evaluation/WhatsApp Image 2026-05-10 at 3.04.12 PM (2).jpeg" alt="Luxury home Vaughan">
+    </div>
+    <div class="eval-strip__panel">
+      <img src="Complimentary Evaluation/WhatsApp Image 2026-05-10 at 3.04.20 PM.jpeg" alt="Executive property GTA">
+    </div>
+  </div>
+
+  <!-- ===================== BIO ===================== -->
+  <section class="eval-bio">
+    <div class="container">
+      <div class="eval-bio__wrap">
+
+        <div class="eval-bio__photo fade-left">
+          <img src="Photos of Me/DSC03659 - 1.jpg" alt="Ali Mosadeq — Real Estate Broker">
+        </div>
+
+        <div class="eval-bio__copy fade-right">
+          <span class="eyebrow">Your Broker</span>
+          <span class="gold-rule"></span>
+          <h2>Ali Mosadeq</h2>
+          <p style="font-family:var(--sans);font-size:0.78rem;font-weight:300;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin:0 0 1.5rem;">Real Estate Broker &nbsp;·&nbsp; RE/MAX Hallmark</p>
+          <p>Ali has spent over a decade mastering the Vaughan and GTA real estate market. A product of 11 homes across multiple countries, he brings an uncommon depth of empathy to every transaction — he knows what a move really means to a family.</p>
+          <p>Armed with designations in buyer representation, negotiation, and senior specialist work (ABR, CNE, SRS, SRES), and backed by $100M+ in career sales, Ali's evaluations aren't guesses. They're the same data-driven analysis he uses before every listing appointment.</p>
+          <div class="eval-bio__awards">
+            <img src="Award Logos/hall-of-fame-logo-white-transparent.png" alt="RE/MAX Hall of Fame" style="filter:grayscale(1) brightness(0.3);">
+            <img src="Award Logos/platinum - ali edit blue.png" alt="RE/MAX Platinum Club">
+            <img src="Award Logos/100_Percent (1).png" alt="RE/MAX 100% Club">
+            <img src="Brokerage Logo/remax-hallmark-toronto-cmyk-dark-wide.jpg" alt="RE/MAX Hallmark" style="height:36px;">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL SNIPPET ===================== -->
+  <section class="section" style="background:var(--white);padding:clamp(4rem,7vw,6rem) 0;">
+    <div class="container">
+      <div class="section__header fade-up" style="max-width:600px;">
+        <span class="eyebrow">Client Voices</span>
+        <span class="gold-rule"></span>
+        <h2>What Sellers Say</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;">
+
+        <div class="testimonial-card fade-up" style="background:var(--off-white);padding:2.5rem;border:1px solid var(--rule-grey);">
+          <div class="testimonial-card__stars">★★★★★</div>
+          <blockquote class="testimonial-card__quote">"He sold our condo at full asking — no drama, no days sitting on market. The evaluation he gave us was spot-on."</blockquote>
+          <div class="testimonial-card__author">
+            <span class="testimonial-card__initials">AB</span>
+            <div>
+              <strong>A.B.</strong>
+              <span>Condo Seller, Vaughan</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-up" style="background:var(--deep-blue);padding:2.5rem;">
+          <div class="testimonial-card__stars" style="color:var(--gold);">★★★★★</div>
+          <blockquote class="testimonial-card__quote" style="color:rgba(255,255,255,0.85);">"Full asking price in less than two days. Ali knew exactly how to position our home and the results spoke for themselves."</blockquote>
+          <div class="testimonial-card__author">
+            <span class="testimonial-card__initials" style="background:rgba(255,255,255,0.1);color:var(--gold);">JM</span>
+            <div>
+              <strong style="color:var(--white);">J.M.</strong>
+              <span style="color:rgba(255,255,255,0.5);">Detached Home Seller, Vaughan</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-up" style="background:var(--off-white);padding:2.5rem;border:1px solid var(--rule-grey);">
+          <div class="testimonial-card__stars">★★★★★</div>
+          <blockquote class="testimonial-card__quote">"Changed my perception of what a realtor should be. Patient, honest, and never pushy. I came back to use him again."</blockquote>
+          <div class="testimonial-card__author">
+            <span class="testimonial-card__initials">RJ</span>
+            <div>
+              <strong>R.J.</strong>
+              <span>Repeat Client, Vaughan</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="section__footer fade-up" style="margin-top:2.5rem;text-align:center;">
+        <a href="https://share.google/O1hV9iIkMFqq5zsqg" target="_blank" rel="noopener" class="btn btn--outline">Read All Google Reviews</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER CTA ===================== -->
+  <div class="eval-footer-cta">
+    <div class="container">
+      <p>
+        Ali Mosadeq &nbsp;·&nbsp; RE/MAX Hallmark Realty Ltd., Brokerage &nbsp;·&nbsp;
+        <a href="tel:6472956950">647 295 6950</a> &nbsp;·&nbsp;
+        <a href="mailto:info@sellwithali.com">info@sellwithali.com</a> &nbsp;·&nbsp;
+        3420 Major MacKenzie Dr W, Unit 103, Vaughan, ON &nbsp;·&nbsp;
+        <a href="index.html">← Back to Main Site</a>
+      </p>
+    </div>
+  </div>
+
+</body>
+<script>
+  /* Nav scroll */
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* Mobile nav */
+  const navToggle = document.getElementById('navToggle');
+  const navMenu   = document.getElementById('navMenu');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navMenu.classList.toggle('open');
+    navToggle.classList.toggle('active', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  navMenu.querySelectorAll('.nav__link').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      navToggle.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* Smooth scroll */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      const id     = anchor.getAttribute('href');
+      const target = document.querySelector(id);
+      if (!target || id === '#') return;
+      e.preventDefault();
+      const offset = header.offsetHeight + 16;
+      const top    = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+  /* Scroll animations */
+  const animObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        animObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up, .fade-left, .fade-right').forEach(el => {
+    animObserver.observe(el);
+  });
+
+  /* Form */
+  const KVCORE_WEBHOOK = '';
+  async function submitToKvCore(payload) {
+    if (!KVCORE_WEBHOOK) return;
+    try {
+      await fetch(KVCORE_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+    } catch (err) {
+      console.warn('[kvCORE]', err);
+    }
+  }
+
+  const evalForm = document.getElementById('evalPageForm');
+  const evalSuccess = document.getElementById('evalPageSuccess');
+
+  evalForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!evalForm.checkValidity()) { evalForm.reportValidity(); return; }
+    const btn = evalForm.querySelector('[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    const fd = new FormData(evalForm);
+    await submitToKvCore({
+      first_name: fd.get('firstName') || '',
+      last_name:  fd.get('lastName')  || '',
+      email:      fd.get('email')     || '',
+      phone:      fd.get('phone')     || '',
+      source:     'Website – Evaluation Page',
+      notes: [
+        fd.get('address')  && `Address: ${fd.get('address')}`,
+        fd.get('timeline') && `Timeline: ${fd.get('timeline')}`,
+        fd.get('message')  && `Notes: ${fd.get('message')}`,
+      ].filter(Boolean).join('\n'),
+    });
+    evalForm.hidden = true;
+    evalSuccess.hidden = false;
+  });
+</script>
+</html>
