@@ -3,23 +3,30 @@
    ============================================================ */
 
 /* ----------------------------------------------------------------
-   WEB3FORMS — Email notifications for every form submission
+   CONFIGURATION — paste your keys here
    ----------------------------------------------------------------
-   1. Go to https://web3forms.com
-   2. Enter your email (info@sellwithali.com) and click "Create Access Key"
-   3. Paste the key below — all lead forms will email you instantly.
-   Free plan: 250 submissions/month. No backend needed.
-   ---------------------------------------------------------------- */
-const WEB3FORMS_KEY = ''; // paste your key here, e.g. 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 
-/* ----------------------------------------------------------------
-   kvCORE CONFIGURATION
-   ----------------------------------------------------------------
-   When you locate your kvCORE webhook URL:
-     kvCORE Dashboard → Settings → Integrations → Lead Sources → Add Source
-   Paste the URL below. All form submissions will also post to kvCORE.
+   ZAPIER_WEBHOOK
+     In Zapier: New Zap → Trigger: Webhooks by Zapier (Catch Hook)
+     Copy the webhook URL and paste below.
+     Then add two Actions to the same Zap:
+       1. Your CRM (search for it in Zapier apps)
+       2. Gmail / Outlook → Send Email  (use {{pdf_url}} in the body
+          so the lead receives their guide link automatically)
+
+   MAILCHIMP_ACTION
+     In Mailchimp: Audience → Signup forms → Embedded forms
+     Copy the form action URL (looks like:
+     https://xxxx.us1.list-manage.com/subscribe/post?u=XXXX&id=XXXX)
+     and paste below.
+
+   SITE_URL
+     Update this to your live domain once it's connected.
+     It's used to build the guide download link sent in emails.
    ---------------------------------------------------------------- */
-const KVCORE_WEBHOOK = ''; // e.g. 'https://api.kvcore.com/v2/public/lead?key=XXXXXX'
+const ZAPIER_WEBHOOK    = ''; // https://hooks.zapier.com/hooks/catch/XXXXXXX/XXXXXXX/
+const MAILCHIMP_ACTION  = ''; // https://xxxx.us1.list-manage.com/subscribe/post?u=...
+const SITE_URL          = 'https://sellwithali-website.onrender.com'; // update to sellwithali.com when live
 
 /* ----------------------------------------------------------------
    NAV — Scroll behaviour: transparent → frosted white on scroll
@@ -42,7 +49,6 @@ navToggle.addEventListener('click', () => {
   document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 
-// Close nav when any link is clicked
 navMenu.querySelectorAll('.nav__link').forEach(link => {
   link.addEventListener('click', () => {
     navMenu.classList.remove('open');
@@ -83,58 +89,50 @@ document.querySelectorAll('.fade-up, .fade-left, .fade-right').forEach(el => {
 });
 
 /* ----------------------------------------------------------------
-   LEAD CAPTURE — Web3Forms email + kvCORE CRM integration
+   LEAD CAPTURE — Zapier webhook → CRM + email delivery
    ---------------------------------------------------------------- */
-function buildPayload(formData, source) {
+function buildPayload(formData, source, pdfPath) {
   return {
     first_name: formData.get('firstName') || '',
     last_name:  formData.get('lastName')  || '',
     email:      formData.get('email')     || '',
     phone:      formData.get('phone')     || '',
-    source:     `Website – ${source}`,
-    notes: [
-      formData.get('address')  && `Address: ${formData.get('address')}`,
-      formData.get('timeline') && `Timeline: ${formData.get('timeline')}`,
-      formData.get('interest') && `Interest: ${formData.get('interest')}`,
-      formData.get('guide')    && `Guide requested: ${formData.get('guide')}`,
-      formData.get('message')  && `Message: ${formData.get('message')}`,
-    ].filter(Boolean).join('\n'),
+    source,
+    address:    formData.get('address')   || '',
+    timeline:   formData.get('timeline')  || '',
+    interest:   formData.get('interest')  || '',
+    guide:      formData.get('guide')     || '',
+    message:    formData.get('message')   || '',
+    pdf_url:    pdfPath ? `${SITE_URL}/${pdfPath}` : '',
   };
 }
 
-async function submitToWeb3Forms(payload) {
-  if (!WEB3FORMS_KEY) return;
-  const name = [payload.first_name, payload.last_name].filter(Boolean).join(' ');
+async function submitToZapier(payload) {
+  if (!ZAPIER_WEBHOOK) return;
   try {
-    await fetch('https://api.web3forms.com/submit', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        access_key: WEB3FORMS_KEY,
-        subject:    `New Lead from sellwithali.com — ${payload.source}`,
-        from_name:  name || 'Website Lead',
-        name,
-        email:   payload.email,
-        phone:   payload.phone,
-        source:  payload.source,
-        details: payload.notes || '—',
-      }),
-    });
-  } catch (err) {
-    console.warn('[Web3Forms] Submission error:', err);
-  }
-}
-
-async function submitToKvCore(payload) {
-  if (!KVCORE_WEBHOOK) return;
-  try {
-    await fetch(KVCORE_WEBHOOK, {
+    await fetch(ZAPIER_WEBHOOK, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify(payload),
     });
   } catch (err) {
-    console.warn('[kvCORE] Submission error — check webhook URL:', err);
+    console.warn('[Zapier] Submission error:', err);
+  }
+}
+
+async function submitToMailchimp(email, firstName, lastName) {
+  if (!MAILCHIMP_ACTION) return;
+  try {
+    const body = new URLSearchParams({
+      EMAIL:     email,
+      FNAME:     firstName,
+      LNAME:     lastName,
+      subscribe: 'Subscribe',
+    });
+    // Use no-cors — Mailchimp doesn't allow CORS from browser but the request still lands
+    await fetch(MAILCHIMP_ACTION, { method: 'POST', mode: 'no-cors', body });
+  } catch (err) {
+    console.warn('[Mailchimp] Submission error:', err);
   }
 }
 
@@ -155,26 +153,26 @@ document.querySelectorAll('form[data-form]').forEach(form => {
     btn.disabled    = true;
     btn.textContent = 'Sending…';
 
-    const formData = new FormData(form);
-    const source   = form.dataset.form;
-    const payload  = buildPayload(formData, source);
+    const formData  = new FormData(form);
+    const source    = form.dataset.form;
+    const pdfPath   = form.dataset.pdf || '';
+    const payload   = buildPayload(formData, source, pdfPath);
 
-    await Promise.all([
-      submitToWeb3Forms(payload),
-      submitToKvCore(payload),
-    ]);
+    const tasks = [submitToZapier(payload)];
 
-    // Show success
+    // Also subscribe to Mailchimp for newsletter and resource forms
+    if (source === 'newsletter' || source === 'resource') {
+      tasks.push(submitToMailchimp(payload.email, payload.first_name, payload.last_name));
+    }
+
+    await Promise.all(tasks);
+
     const successId = successMap[form.id];
     if (successId) {
       form.hidden = true;
-      const successEl = document.getElementById(successId);
-      successEl.hidden = false;
-      // Wire up download button for resource form
-      if (form.id === 'resourceForm' && resourceDownloadBtn) {
-        const pdf = form.dataset.pdf || '';
-        resourceDownloadBtn.href = pdf;
-        resourceDownloadBtn.setAttribute('download', '');
+      document.getElementById(successId).hidden = false;
+      if (form.id === 'resourceForm') {
+        setTimeout(closeModal, 5000);
       }
     } else {
       btn.textContent = 'Sent ✓';
@@ -185,13 +183,12 @@ document.querySelectorAll('form[data-form]').forEach(form => {
 /* ----------------------------------------------------------------
    RESOURCE DOWNLOAD MODAL
    ---------------------------------------------------------------- */
-const resourceModal = document.getElementById('resourceModal');
-const modalClose    = document.getElementById('modalClose');
-const guideName     = document.getElementById('guideName');
-const guideInput    = document.getElementById('guideInput');
-const resourceForm  = document.getElementById('resourceForm');
+const resourceModal   = document.getElementById('resourceModal');
+const modalClose      = document.getElementById('modalClose');
+const guideName       = document.getElementById('guideName');
+const guideInput      = document.getElementById('guideInput');
+const resourceForm    = document.getElementById('resourceForm');
 const resourceSuccess = document.getElementById('resourceSuccess');
-const resourceDownloadBtn = document.getElementById('resourceDownloadBtn');
 
 function openModal(guide, pdfPath) {
   guideName.textContent  = guide;
@@ -233,13 +230,12 @@ document.addEventListener('keydown', e => {
   if (!track) return;
 
   const cards    = Array.from(track.querySelectorAll('.testimonial-card'));
-  const total    = cards.length;          // 7
+  const total    = cards.length;
   const visible  = window.innerWidth <= 768 ? 1 : 3;
-  const maxIdx   = total - visible;       // 4
+  const maxIdx   = total - visible;
   let current    = 0;
   let autoTimer;
 
-  // Build dots
   for (let i = 0; i <= maxIdx; i++) {
     const dot = document.createElement('button');
     dot.className = 'carousel__dot' + (i === 0 ? ' active' : '');
@@ -266,15 +262,13 @@ document.addEventListener('keydown', e => {
 
   prevBtn.addEventListener('click', () => goTo(current > 0 ? current - 1 : maxIdx));
   nextBtn.addEventListener('click', () => goTo(current < maxIdx ? current + 1 : 0));
-
-  // Recalculate on resize
   window.addEventListener('resize', () => goTo(current), { passive: true });
 
   resetAuto();
 })();
 
 /* ----------------------------------------------------------------
-   GALLERY — Lightbox (simple expand on click)
+   GALLERY — Lightbox
    ---------------------------------------------------------------- */
 document.querySelectorAll('.gallery__item img').forEach(img => {
   img.style.cursor = 'zoom-in';
