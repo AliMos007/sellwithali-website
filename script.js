@@ -3,12 +3,21 @@
    ============================================================ */
 
 /* ----------------------------------------------------------------
+   WEB3FORMS — Email notifications for every form submission
+   ----------------------------------------------------------------
+   1. Go to https://web3forms.com
+   2. Enter your email (info@sellwithali.com) and click "Create Access Key"
+   3. Paste the key below — all lead forms will email you instantly.
+   Free plan: 250 submissions/month. No backend needed.
+   ---------------------------------------------------------------- */
+const WEB3FORMS_KEY = ''; // paste your key here, e.g. 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+
+/* ----------------------------------------------------------------
    kvCORE CONFIGURATION
    ----------------------------------------------------------------
    When you locate your kvCORE webhook URL:
      kvCORE Dashboard → Settings → Integrations → Lead Sources → Add Source
-   Paste the URL below. All form submissions will automatically
-   post leads to your kvCORE CRM.
+   Paste the URL below. All form submissions will also post to kvCORE.
    ---------------------------------------------------------------- */
 const KVCORE_WEBHOOK = ''; // e.g. 'https://api.kvcore.com/v2/public/lead?key=XXXXXX'
 
@@ -74,21 +83,8 @@ document.querySelectorAll('.fade-up, .fade-left, .fade-right').forEach(el => {
 });
 
 /* ----------------------------------------------------------------
-   LEAD CAPTURE — kvCORE integration + form state management
+   LEAD CAPTURE — Web3Forms email + kvCORE CRM integration
    ---------------------------------------------------------------- */
-async function submitToKvCore(payload) {
-  if (!KVCORE_WEBHOOK) return; // Skip if not yet configured
-  try {
-    await fetch(KVCORE_WEBHOOK, {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify(payload),
-    });
-  } catch (err) {
-    console.warn('[kvCORE] Submission error — check webhook URL:', err);
-  }
-}
-
 function buildPayload(formData, source) {
   return {
     first_name: formData.get('firstName') || '',
@@ -106,6 +102,42 @@ function buildPayload(formData, source) {
   };
 }
 
+async function submitToWeb3Forms(payload) {
+  if (!WEB3FORMS_KEY) return;
+  const name = [payload.first_name, payload.last_name].filter(Boolean).join(' ');
+  try {
+    await fetch('https://api.web3forms.com/submit', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        subject:    `New Lead from sellwithali.com — ${payload.source}`,
+        from_name:  name || 'Website Lead',
+        name,
+        email:   payload.email,
+        phone:   payload.phone,
+        source:  payload.source,
+        details: payload.notes || '—',
+      }),
+    });
+  } catch (err) {
+    console.warn('[Web3Forms] Submission error:', err);
+  }
+}
+
+async function submitToKvCore(payload) {
+  if (!KVCORE_WEBHOOK) return;
+  try {
+    await fetch(KVCORE_WEBHOOK, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+  } catch (err) {
+    console.warn('[kvCORE] Submission error — check webhook URL:', err);
+  }
+}
+
 // Success state map: formId → successElementId
 const successMap = {
   valuationForm:  'valuationSuccess',
@@ -120,7 +152,6 @@ document.querySelectorAll('form[data-form]').forEach(form => {
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
     const btn       = form.querySelector('[type="submit"]');
-    const origText  = btn.textContent;
     btn.disabled    = true;
     btn.textContent = 'Sending…';
 
@@ -128,20 +159,25 @@ document.querySelectorAll('form[data-form]').forEach(form => {
     const source   = form.dataset.form;
     const payload  = buildPayload(formData, source);
 
-    await submitToKvCore(payload);
+    await Promise.all([
+      submitToWeb3Forms(payload),
+      submitToKvCore(payload),
+    ]);
 
     // Show success
     const successId = successMap[form.id];
     if (successId) {
       form.hidden = true;
-      document.getElementById(successId).hidden = false;
+      const successEl = document.getElementById(successId);
+      successEl.hidden = false;
+      // Wire up download button for resource form
+      if (form.id === 'resourceForm' && resourceDownloadBtn) {
+        const pdf = form.dataset.pdf || '';
+        resourceDownloadBtn.href = pdf;
+        resourceDownloadBtn.setAttribute('download', '');
+      }
     } else {
       btn.textContent = 'Sent ✓';
-    }
-
-    // Reset modal after delay so user sees confirmation
-    if (form.id === 'resourceForm') {
-      setTimeout(closeModal, 3200);
     }
   });
 });
@@ -155,16 +191,17 @@ const guideName     = document.getElementById('guideName');
 const guideInput    = document.getElementById('guideInput');
 const resourceForm  = document.getElementById('resourceForm');
 const resourceSuccess = document.getElementById('resourceSuccess');
+const resourceDownloadBtn = document.getElementById('resourceDownloadBtn');
 
-function openModal(guide) {
-  guideName.textContent = guide;
-  guideInput.value      = guide;
-  resourceForm.hidden   = false;
+function openModal(guide, pdfPath) {
+  guideName.textContent  = guide;
+  guideInput.value       = guide;
+  resourceForm.hidden    = false;
   resourceSuccess.hidden = true;
   resourceForm.reset();
+  resourceForm.dataset.pdf = pdfPath || '';
   resourceModal.classList.add('active');
   document.body.style.overflow = 'hidden';
-  // Focus first input for accessibility
   setTimeout(() => resourceForm.querySelector('input')?.focus(), 300);
 }
 
@@ -174,7 +211,7 @@ function closeModal() {
 }
 
 document.querySelectorAll('.resource-btn').forEach(btn => {
-  btn.addEventListener('click', () => openModal(btn.dataset.guide));
+  btn.addEventListener('click', () => openModal(btn.dataset.guide, btn.dataset.pdf));
 });
 
 modalClose.addEventListener('click', closeModal);
