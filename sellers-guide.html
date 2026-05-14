@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Move-Up Method — Ali Mosadeq, Real Estate Broker · Vaughan</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --white:      #FFFFFF;
+      --off-white:  #F9F8F6;
+      --light-bg:   #F4F2EE;
+      --near-black: #1C1C1C;
+      --dark-grey:  #333333;
+      --mid-grey:   #666666;
+      --light-grey: #AAAAAA;
+      --rule-grey:  #E0DDD9;
+      --gold:       #B8912A;
+      --gold-light: #C9A84C;
+      --heading:    'Jost', 'Futura', 'Century Gothic', sans-serif;
+      --body:       'Lora', Georgia, serif;
+      --sans:       'Jost', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--near-black);
+      font-family: var(--body);
+      font-size: 18px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+    .wrap--narrow { max-width: 720px; margin: 0 auto; padding: 0 48px; }
+
+    @media (max-width: 600px) {
+      .wrap, .wrap--narrow { padding: 0 24px; }
+    }
+
+    .gold-rule {
+      display: block;
+      width: 80px;
+      height: 1px;
+      background: var(--gold);
+      margin: 14px 0 32px 0;
+    }
+    .gold-rule--center { margin: 14px auto 32px; }
+
+    .section-heading {
+      font-family: var(--heading);
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 200;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--near-black);
+      line-height: 1.15;
+    }
+
+    .sub-label {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* TOPBAR */
+    .topbar {
+      border-bottom: 1px solid var(--rule-grey);
+      padding: 18px 0;
+    }
+    .topbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo img {
+      display: block;
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+    }
+    .logo__wordmark {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--near-black);
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 700px;
+      display: grid;
+      grid-template-columns: 52% 48%;
+      overflow: hidden;
+    }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+    }
+
+    .hero__left {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 120px 60px 64px;
+      background: var(--white);
+      clip-path: polygon(0 0, 100% 0, calc(100% - 80px) 100%, 0 100%);
+    }
+    @media (max-width: 1100px) {
+      .hero__left { padding: 52px 100px 52px 48px; }
+    }
+    @media (max-width: 860px) {
+      .hero__left { clip-path: none; padding: 48px 24px 36px; }
+    }
+
+    .hero__right {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      background: var(--light-bg);
+      margin-left: -80px;
+    }
+    .hero__right img {
+      width: 100%;
+      height: 130%;
+      object-fit: cover;
+      object-position: center top;
+      margin-top: -8%;
+    }
+    @media (max-width: 860px) {
+      .hero__right { height: 480px; margin-left: 0; }
+    }
+
+    .hero__eyebrow {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .hero__heading {
+      font-family: var(--heading);
+      font-size: clamp(38px, 4.5vw, 62px);
+      font-weight: 200;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--near-black);
+      line-height: 1.08;
+    }
+    .hero__body {
+      font-family: var(--body);
+      font-size: 17px;
+      color: var(--mid-grey);
+      line-height: 1.85;
+      max-width: 400px;
+      margin-bottom: 40px;
+    }
+    .hero__cta {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--near-black);
+      padding: 18px 40px;
+      text-decoration: none;
+      transition: background 0.2s;
+      align-self: flex-start;
+    }
+    .hero__cta:hover { background: var(--gold); }
+
+    .divider { border: none; border-top: 1px solid var(--rule-grey); margin: 0; }
+
+    /* VALUE GRID */
+    .value { padding: 88px 0; }
+    .value__header { text-align: center; margin-bottom: 64px; }
+    .value__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--rule-grey);
+      border-left: 1px solid var(--rule-grey);
+    }
+    @media (max-width: 860px) { .value__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .value__grid { grid-template-columns: 1fr; } }
+    .value__item {
+      padding: 36px 28px;
+      border-right: 1px solid var(--rule-grey);
+      border-bottom: 1px solid var(--rule-grey);
+    }
+    .value__number {
+      font-family: var(--heading);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .value__item-title {
+      font-family: var(--heading);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--near-black);
+      margin-bottom: 12px;
+    }
+    .value__item-body {
+      font-family: var(--body);
+      font-size: 16px;
+      color: var(--mid-grey);
+      line-height: 1.75;
+    }
+
+    /* CHECKLIST PREVIEW */
+    .preview {
+      background: var(--off-white);
+      padding: 88px 0;
+      border-top: 1px solid var(--rule-grey);
+      border-bottom: 1px solid var(--rule-grey);
+    }
+    .preview__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    @media (max-width: 720px) { .preview__inner { grid-template-columns: 1fr; gap: 48px; } }
+    .checklist-block__label {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .checklist-block__title {
+      font-family: var(--heading);
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--near-black);
+      margin-bottom: 4px;
+    }
+    .checklist-block__list {
+      list-style: none;
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .checklist-block__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-family: var(--body);
+      font-size: 17px;
+      color: var(--dark-grey);
+      line-height: 1.7;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--rule-grey);
+    }
+    .checklist-block__list li:first-child { border-top: 1px solid var(--rule-grey); }
+    .tick { flex-shrink: 0; margin-top: 4px; width: 17px; height: 17px; }
+
+    /* QUOTE */
+    .proof { padding: 88px 0; text-align: center; }
+    .proof__inner { max-width: 640px; margin: 0 auto; }
+    .proof__quote {
+      font-family: var(--body);
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-style: italic;
+      color: var(--near-black);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+    .proof__author-name {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--near-black);
+    }
+    .proof__author-loc {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      color: var(--light-grey);
+      margin-top: 4px;
+    }
+
+    /* OPT-IN */
+    .optin { background: var(--near-black); padding: 96px 0; }
+    .optin__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    @media (max-width: 760px) { .optin__inner { grid-template-columns: 1fr; gap: 48px; } }
+    .optin__heading {
+      font-family: var(--heading);
+      font-size: clamp(32px, 4vw, 50px);
+      font-weight: 200;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1.15;
+    }
+    .optin__body {
+      font-family: var(--body);
+      font-size: 17px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+    }
+    .optin-form { display: flex; flex-direction: column; gap: 14px; }
+    .optin-form__label {
+      display: block;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 6px;
+    }
+    .optin-form__input {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white);
+      font-family: var(--body);
+      font-size: 17px;
+      padding: 16px 20px;
+      outline: none;
+      border-radius: 0;
+      -webkit-appearance: none;
+      transition: border-color 0.2s;
+    }
+    .optin-form__input::placeholder { color: rgba(255,255,255,0.2); }
+    .optin-form__input:focus { border-color: var(--gold); }
+    .optin-form__btn {
+      width: 100%;
+      background: var(--gold);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      padding: 19px 24px;
+      border: none;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: background 0.2s;
+    }
+    .optin-form__btn:hover { background: var(--gold-light); }
+    .optin-form__btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .optin-form__note {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.22);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+    .optin-form__calendly {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.4);
+      margin-top: 20px;
+      letter-spacing: 0.04em;
+    }
+    .optin-form__calendly a {
+      color: var(--gold-light);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .optin-form__calendly a:hover {
+      color: var(--white);
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    /* Success message */
+    .optin-success {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .optin-success__icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 24px;
+    }
+    .optin-success__heading {
+      font-family: var(--heading);
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 200;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .optin-success__body {
+      font-family: var(--body);
+      font-size: 17px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+    }
+
+    /* BIO */
+    .bio {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      min-height: 560px;
+      border-top: 1px solid var(--rule-grey);
+    }
+    @media (max-width: 860px) { .bio { grid-template-columns: 1fr; } }
+    .bio__photo { overflow: hidden; background: var(--light-bg); }
+    .bio__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    @media (max-width: 860px) { .bio__photo { height: 380px; } }
+    .bio__content {
+      padding: 72px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    @media (max-width: 860px) { .bio__content { padding: 52px 24px; } }
+    .bio__name {
+      font-family: var(--heading);
+      font-size: clamp(32px, 3.5vw, 46px);
+      font-weight: 200;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--near-black);
+    }
+    .bio__title {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--light-grey);
+      margin-bottom: 32px;
+      margin-top: 6px;
+    }
+    .bio__body {
+      font-family: var(--body);
+      font-size: 17px;
+      color: var(--mid-grey);
+      line-height: 1.85;
+      margin-bottom: 36px;
+    }
+    .bio__creds { display: flex; flex-wrap: wrap; gap: 10px; }
+    .bio__cred {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--near-black);
+      border: 1px solid var(--rule-grey);
+      padding: 6px 14px;
+    }
+
+    /* REVIEWS */
+    .reviews {
+      padding: 88px 0;
+      background: var(--off-white);
+      border-top: 1px solid var(--rule-grey);
+    }
+    .reviews__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      margin-top: 52px;
+    }
+    @media (max-width: 720px) { .reviews__grid { grid-template-columns: 1fr; gap: 40px; } }
+    .review__name {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--near-black);
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule-grey);
+    }
+    .review__body {
+      font-family: var(--body);
+      font-size: 17px;
+      font-style: italic;
+      color: var(--mid-grey);
+      line-height: 1.85;
+    }
+
+    /* FOOTER */
+    .footer { border-top: 1px solid var(--rule-grey); padding: 36px 0; text-align: center; }
+    .footer__text {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--light-grey);
+      line-height: 2;
+    }
+    .footer__text a { color: var(--mid-grey); text-decoration: none; }
+    .footer__text a:hover { color: var(--gold); }
+
+    /* CALENDLY SPLIT SECTION */
+    .cta-split {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      height: 420px;
+      border-top: 1px solid var(--rule-grey);
+      overflow: hidden;
+      position: relative;
+    }
+    @media (max-width: 860px) {
+      .cta-split { grid-template-columns: 1fr; min-height: auto; }
+    }
+
+    .cta-split__left {
+      position: relative;
+      z-index: 2;
+      background: var(--white);
+      padding: 64px 120px 64px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      clip-path: polygon(0 0, 100% 0, calc(100% - 80px) 100%, 0 100%);
+    }
+    @media (max-width: 1100px) {
+      .cta-split__left { padding: 56px 100px 56px 48px; }
+    }
+    @media (max-width: 860px) {
+      .cta-split__left { clip-path: none; padding: 52px 24px 40px; }
+    }
+
+    .cta-split__right {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      background: var(--light-bg);
+      margin-left: -80px;
+      min-height: 380px;
+    }
+    .cta-split__right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+    }
+    @media (max-width: 860px) {
+      .cta-split__right { height: 340px; margin-left: 0; }
+    }
+
+    .cta-split__heading {
+      font-family: var(--heading);
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 200;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--near-black);
+      line-height: 1.12;
+      margin-top: 12px;
+    }
+
+    .cta-split__body {
+      font-family: var(--body);
+      font-size: 17px;
+      color: var(--mid-grey);
+      line-height: 1.85;
+      margin-bottom: 28px;
+    }
+
+    .cta-split__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 40px;
+    }
+
+    .cta-split__list li {
+      font-family: var(--body);
+      font-size: 16px;
+      color: var(--dark-grey);
+      padding: 11px 0;
+      border-bottom: 1px solid var(--rule-grey);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .cta-split__list li:first-child { border-top: 1px solid var(--rule-grey); }
+    .cta-split__list li::before {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .cta-split__btn {
+      display: inline-block;
+      align-self: flex-start;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--near-black);
+      padding: 18px 40px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .cta-split__btn:hover { background: var(--gold); }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero__left > * { animation: fadeUp 0.7s ease both; }
+    .hero__left > *:nth-child(1) { animation-delay: 0.05s; }
+    .hero__left > *:nth-child(2) { animation-delay: 0.15s; }
+    .hero__left > *:nth-child(3) { animation-delay: 0.22s; }
+    .hero__left > *:nth-child(4) { animation-delay: 0.3s; }
+    .hero__left > *:nth-child(5) { animation-delay: 0.38s; }
+    .hero__left > *:nth-child(6) { animation-delay: 0.46s; }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="wrap">
+      <div class="topbar__inner">
+        <a href="https://sellwithali.com" class="logo">
+          <svg width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g1" x1="24" y1="3" x2="24" y2="45" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#D4A843"/>
+                <stop offset="100%" stop-color="#8B6514"/>
+              </linearGradient>
+            </defs>
+            <polygon points="24,3 45,44 3,44" stroke="url(#g1)" stroke-width="2" fill="none"/>
+            <polygon points="24,12 39,41 9,41" stroke="url(#g1)" stroke-width="1.5" fill="none" opacity="0.7"/>
+            <polygon points="24,21 33,40 15,40" stroke="url(#g1)" stroke-width="1" fill="none" opacity="0.4"/>
+            <line x1="9" y1="44" x2="3" y2="44" stroke="url(#g1)" stroke-width="2"/>
+            <line x1="45" y1="44" x2="39" y2="44" stroke="url(#g1)" stroke-width="2"/>
+          </svg>
+          <span class="logo__wordmark">Ali Mosadeq &nbsp;·&nbsp; Real Estate Broker</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__left">
+      <p class="hero__eyebrow">Free Download · Vaughan Families</p>
+      <h1 class="hero__heading">The Move-Up<br/>Method</h1>
+      <span class="gold-rule"></span>
+      <p class="hero__body">
+        A proven framework for families who want to sell their current home and move up to something better — without the stress, the overlap, or leaving money on the table.
+      </p>
+      <a href="#get-guide" class="hero__cta">Get the free guide</a>
+    </div>
+    <div class="hero__right">
+      <img src="Photos of Me/DSC03659 - 1.jpg" alt="Ali Mosadeq — Real Estate Broker, Vaughan" width="420" height="700" />
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- WHAT YOU GET -->
+  <section class="value">
+    <div class="wrap">
+      <div class="value__header">
+        <p class="sub-label">What's inside</p>
+        <h2 class="section-heading" style="margin-top:12px;">Eight chapters. Fully covered.</h2>
+        <span class="gold-rule gold-rule--center"></span>
+      </div>
+      <div class="value__grid">
+        <div class="value__item">
+          <p class="value__number">01</p>
+          <h3 class="value__item-title">Timing</h3>
+          <p class="value__item-body">When to list vs. when to buy first — and how to avoid carrying two mortgages.</p>
+        </div>
+        <div class="value__item">
+          <p class="value__number">02</p>
+          <h3 class="value__item-title">Pricing</h3>
+          <p class="value__item-body">How to price your current home for maximum return while staying competitive.</p>
+        </div>
+        <div class="value__item">
+          <p class="value__number">03</p>
+          <h3 class="value__item-title">Equity Strategy</h3>
+          <p class="value__item-body">How to leverage your current equity as a down payment on your next home.</p>
+        </div>
+        <div class="value__item">
+          <p class="value__number">04</p>
+          <h3 class="value__item-title">Bridge Financing</h3>
+          <p class="value__item-body">What it is, when you need it, and how to qualify.</p>
+        </div>
+        <div class="value__item">
+          <p class="value__number">05</p>
+          <h3 class="value__item-title">Negotiation</h3>
+          <p class="value__item-body">How to negotiate both transactions simultaneously without either falling apart.</p>
+        </div>
+        <div class="value__item">
+          <p class="value__number">06</p>
+          <h3 class="value__item-title">Staging</h3>
+          <p class="value__item-body">The exact improvements that add value before you list — and the ones that don't.</p>
+        </div>
+        <div class="value__item">
+          <p class="value__number">07</p>
+          <h3 class="value__item-title">Timeline</h3>
+          <p class="value__item-body">A week-by-week move-up timeline from decision to possession.</p>
+        </div>
+        <div class="value__item" style="background:var(--off-white);">
+          <p class="value__number">+</p>
+          <h3 class="value__item-title">Local Market</h3>
+          <p class="value__item-body">Vaughan-specific pricing data and neighbourhood move-up trends.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKLIST PREVIEW -->
+  <section class="preview">
+    <div class="wrap">
+      <p class="sub-label">A preview</p>
+      <h2 class="section-heading" style="margin-top:12px;">A taste of what's inside</h2>
+      <span class="gold-rule"></span>
+      <div class="preview__inner">
+        <div class="checklist-block">
+          <p class="checklist-block__label">Stage 01</p>
+          <h3 class="checklist-block__title">Timing Your Move</h3>
+          <ul class="checklist-block__list">
+            <li><svg class="tick" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5L6.5 12.5L13.5 4.5" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Assess your current mortgage — penalties for breaking early</li>
+            <li><svg class="tick" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5L6.5 12.5L13.5 4.5" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Get a free home valuation before listing</li>
+            <li><svg class="tick" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5L6.5 12.5L13.5 4.5" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Review your financial readiness with a mortgage broker</li>
+            <li><svg class="tick" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5L6.5 12.5L13.5 4.5" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Decide: sell first or buy first based on your risk tolerance</li>
+            <li><svg class="tick" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5L6.5 12.5L13.5 4.5" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Understand current Vaughan market conditions</li>
+            <li><svg class="tick" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5L6.5 12.5L13.5 4.5" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Set your ideal possession date before you list</li>
+          </ul>
+        </div>
+        <div class="checklist-block">
+          <p class="checklist-block__label">Stage 05</p>
+          <h3 class="checklist-block__title">Negotiating Both Deals</h3>
+          <ul class="checklist-block__list">
+            <li><svg class="tick" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5L6.5 12.5L13.5 4.5" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Use conditional offers strategically to protect yourself</li>
+            <li><svg class="tick" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5L6.5 12.5L13.5 4.5" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Build in a possession date that aligns with your purchase</li>
+            <li><svg class="tick" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5L6.5 12.5L13.5 4.5" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Understand seller concessions and how to use them</li>
+            <li><svg class="tick" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5L6.5 12.5L13.5 4.5" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Negotiate deposit and closing costs on both sides</li>
+            <li><svg class="tick" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5L6.5 12.5L13.5 4.5" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Have your lawyer review both agreements simultaneously</li>
+            <li><svg class="tick" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5L6.5 12.5L13.5 4.5" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Keep your agent informed of both timelines at all times</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="proof">
+    <div class="wrap">
+      <div class="proof__inner">
+        <span class="gold-rule gold-rule--center"></span>
+        <p class="proof__quote">Ali helped me with the purchase of my Markham condo 10 years ago and was so helpful. When it came time to sell, I knew I'd ask Ali again. His 'white glove' service was more than worth it — we received an offer well above asking price.</p>
+        <p class="proof__author-name">H.W.</p>
+        <p class="proof__author-loc">Seller</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPT-IN FORM -->
+  <section class="optin" id="get-guide">
+    <div class="wrap">
+      <div class="optin__inner">
+        <div class="optin__left">
+          <p class="sub-label" style="color:var(--gold-light);">Free Download</p>
+          <h2 class="optin__heading">Get Your Free<br/>Move-Up Guide</h2>
+          <span class="gold-rule"></span>
+          <p class="optin__body">Enter your name and email and we'll send the full PDF to your inbox. Step-by-step guidance for your family's next move.</p>
+        </div>
+        <div class="optin__right">
+          <form class="optin-form" id="sellers-guide-form" novalidate>
+            <!-- Mailchimp bot field (hidden) -->
+            <div style="position:absolute;left:-5000px;" aria-hidden="true">
+              <input type="text" name="b_bbec6c466a3dc85718f370737_676e7da8f8" tabindex="-1" value="" />
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div>
+                <label class="optin-form__label" for="sg-fname">First Name</label>
+                <input class="optin-form__input" type="text" id="sg-fname" name="first_name" placeholder="First name" autocomplete="given-name" required />
+              </div>
+              <div>
+                <label class="optin-form__label" for="sg-lname">Last Name</label>
+                <input class="optin-form__input" type="text" id="sg-lname" name="last_name" placeholder="Last name" autocomplete="family-name" />
+              </div>
+            </div>
+            <div>
+              <label class="optin-form__label" for="sg-email">Email Address</label>
+              <input class="optin-form__input" type="email" id="sg-email" name="email" placeholder="you@example.com" autocomplete="email" required />
+            </div>
+            <div>
+              <label class="optin-form__label" for="sg-phone">Phone (optional)</label>
+              <input class="optin-form__input" type="tel" id="sg-phone" name="phone" placeholder="Your phone number" autocomplete="tel" />
+            </div>
+            <button class="optin-form__btn" type="submit" id="sg-btn">Send Me the Guide</button>
+            <p class="optin-form__note">Your information is private and will never be shared.</p>
+          </form>
+          <div class="optin-success" id="sg-success">
+            <svg class="optin-success__icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="28" cy="28" r="27" stroke="#B8912A" stroke-width="1.5"/>
+              <path d="M16 28.5L23.5 36L40 20" stroke="#B8912A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="optin-success__heading">Check your inbox!</p>
+            <p class="optin-success__body">We've sent the Move-Up Method guide to your email address. Keep an eye on your inbox — and your spam folder just in case.</p>
+          </div>
+          <p class="optin-form__calendly" id="sg-calendly-link">
+            Rather talk first? &nbsp;<a href="https://calendly.com/brokerali/" target="_blank" rel="noopener">Book a free 15-min call →</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIO -->
+  <section class="bio">
+    <div class="bio__photo">
+      <img src="Photos of Me/DSC03659 - 1.jpg" alt="Ali Mosadeq" width="400" height="560" />
+    </div>
+    <div class="bio__content">
+      <p class="sub-label">Your broker</p>
+      <h2 class="bio__name">Ali Mosadeq</h2>
+      <p class="bio__title">Real Estate Broker · RE/MAX Hallmark · Vaughan</p>
+      <span class="gold-rule"></span>
+      <p class="bio__body">With a decade of experience and deep roots in Vaughan, Ali combines market expertise with an entrepreneurial approach to marketing. His client-first philosophy — built on trust, integrity, and uncompromising advice — has earned him a loyal base of referral clients and results that consistently speak for themselves.</p>
+      <div class="bio__creds">
+        <span class="bio__cred">Top 10% in GTA</span>
+        <span class="bio__cred">Accredited Buyer's Rep</span>
+        <span class="bio__cred">Certified Negotiation Expert</span>
+        <span class="bio__cred">Seller Representative Specialist</span>
+        <span class="bio__cred">Seniors Real Estate Specialist</span>
+        <span class="bio__cred">Vellore Village Specialist</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SPLIT SECTION -->
+  <section class="cta-split">
+    <div class="cta-split__left">
+      <p class="sub-label">Ready to make your move?</p>
+      <h2 class="cta-split__heading">Let's Plan Your<br/>Move-Up Together</h2>
+      <span class="gold-rule"></span>
+      <p class="cta-split__body">
+        Every family's situation is different. Book a free 15-minute call and let's map out exactly how to sell your current home and move up — on your timeline, at the right price.
+      </p>
+      <a href="https://calendly.com/brokerali/" target="_blank" rel="noopener" class="cta-split__btn">
+        Book Your Free Call →
+      </a>
+    </div>
+    <div class="cta-split__right">
+      <img
+        src="Marketing Photos/WhatsApp Image 2026-05-10 at 3.04.20 PM.jpeg"
+        alt="Ali Mosadeq — Book a call"
+        loading="lazy"
+      />
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <p class="footer__text">
+        Ali Mosadeq · Real Estate Broker · RE/MAX Hallmark Realty Ltd., Brokerage<br/>
+        <a href="tel:6472956950">647 295 6950</a> &nbsp;·&nbsp;
+        <a href="mailto:info@sellwithali.com">info@sellwithali.com</a> &nbsp;·&nbsp;
+        <a href="https://sellwithali.com">sellwithali.com</a><br/><br/>
+        © 2026 Ali Mosadeq. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var ZAPIER_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/20575962/4y7t6cg/';
+      var MAILCHIMP_ACTION = 'https://sellwithali.us12.list-manage.com/subscribe/post?u=bbec6c466a3dc85718f370737&id=676e7da8f8&f_id=009ed8e8f0';
+      var GUIDE_NAME = 'Move-Up Method';
+      var PDF_URL = 'https://sellwithali-website.onrender.com/guides/sellers-guide.pdf';
+      var SOURCE = 'sellers-guide';
+
+      var form = document.getElementById('sellers-guide-form');
+      var btn = document.getElementById('sg-btn');
+      var successEl = document.getElementById('sg-success');
+      var calendlyLink = document.getElementById('sg-calendly-link');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var firstName = document.getElementById('sg-fname').value.trim();
+        var lastName = document.getElementById('sg-lname').value.trim();
+        var email = document.getElementById('sg-email').value.trim();
+        var phone = document.getElementById('sg-phone').value.trim();
+
+        if (!firstName || !email) {
+          var missingFirst = !firstName;
+          var missingEmail = !email;
+          if (missingFirst) document.getElementById('sg-fname').focus();
+          else if (missingEmail) document.getElementById('sg-email').focus();
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+
+        // 1. POST to Zapier webhook
+        fetch(ZAPIER_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            phone: phone,
+            source: SOURCE,
+            guide: GUIDE_NAME,
+            pdf_url: PDF_URL
+          })
+        }).catch(function () {
+          // silent — still show success to user
+        });
+
+        // 2. POST to Mailchimp (no-cors)
+        var mcData = new URLSearchParams();
+        mcData.append('EMAIL', email);
+        mcData.append('FNAME', firstName);
+        mcData.append('LNAME', lastName);
+        mcData.append('b_bbec6c466a3dc85718f370737_676e7da8f8', '');
+
+        fetch(MAILCHIMP_ACTION, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: mcData.toString()
+        }).catch(function () {
+          // silent
+        });
+
+        // 3. Show success
+        form.style.display = 'none';
+        successEl.style.display = 'block';
+        if (calendlyLink) calendlyLink.style.marginTop = '32px';
+      });
+    })();
+  </script>
+
+</body>
+</html>
