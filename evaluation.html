@@ -764,17 +764,24 @@
   });
 
   /* Form */
-  const KVCORE_WEBHOOK = '';
   async function submitToKvCore(payload) {
-    if (!KVCORE_WEBHOOK) return;
     try {
-      await fetch(KVCORE_WEBHOOK, {
+      const res = await fetch('https://api.kvcore.com/v2/public/contacts', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEyNzg5ODksImlhdCI6MTc3MjY4OTM1MywiZXhwIjoxODA0MjI1MzUzLCJuYmYiOjE3NzI2ODkzNTMsImF1ZCI6IioiLCJhY3QiOjcwOTUsImp0aSI6IjM2MzAzZGVhMTMyMjNjNTI0MjRmNzg5NjVlZmNkMTg5In0.IDwp5NM4gTNLFcARSd2sclwGMKvKVMj7G-aLHGxL08U',
+        },
+        body: JSON.stringify({
+          email:      payload.email,
+          first_name: payload.first_name,
+          last_name:  payload.last_name,
+          phone:      payload.phone,
+        }),
       });
+      console.log('[BoldTrail API]', res.status);
     } catch (err) {
-      console.warn('[kvCORE]', err);
+      console.warn('[BoldTrail API] error:', err);
     }
   }
 

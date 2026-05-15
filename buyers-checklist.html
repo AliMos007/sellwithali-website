@@ -970,16 +970,16 @@
         }).then(function(r){ console.log('[Guide email] OK', r); })
           .catch(function(e){ console.error('[Guide email] FAILED', e); });
 
-        // 2. Send lead to BoldTrail CRM
-        emailjs.send('service_bbwchcs', 'template_kusoys9', {
-          first_name: firstName,
-          last_name:  lastName,
-          lead_email: email,
-          phone:      phone,
-          source:     SOURCE,
-          guide:      GUIDE_NAME
-        }).then(function(r){ console.log('[KvCore] OK', r); })
-          .catch(function(e){ console.error('[KvCore] FAILED', e); });
+        // 2. Send lead to BoldTrail CRM via direct API
+        fetch('https://api.kvcore.com/v2/public/contacts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEyNzg5ODksImlhdCI6MTc3MjY4OTM1MywiZXhwIjoxODA0MjI1MzUzLCJuYmYiOjE3NzI2ODkzNTMsImF1ZCI6IioiLCJhY3QiOjcwOTUsImp0aSI6IjM2MzAzZGVhMTMyMjNjNTI0MjRmNzg5NjVlZmNkMTg5In0.IDwp5NM4gTNLFcARSd2sclwGMKvKVMj7G-aLHGxL08U',
+          },
+          body: JSON.stringify({ email: email, first_name: firstName, last_name: lastName, phone: phone }),
+        }).then(function(r){ console.log('[BoldTrail API]', r.status); })
+          .catch(function(e){ console.error('[BoldTrail API] error', e); });
 
         // 2. POST to Mailchimp (no-cors)
         var mcData = new URLSearchParams();
