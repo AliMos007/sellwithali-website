@@ -93,8 +93,8 @@ function buildPayload(formData, source, pdfPath) {
 
 async function submitToKvCore(payload) {
   try {
-    const res = await fetch('https://api.kvcore.com/v2/public/leads', {
-      method: 'POST',
+    const res = await fetch('https://api.kvcore.com/v2/public/contacts', {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${BOLDTRAIL_API_TOKEN}`,
