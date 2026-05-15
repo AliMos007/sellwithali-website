@@ -170,7 +170,7 @@
       height: 130%;
       object-fit: cover;
       object-position: center top;
-      margin-top: -20%;
+      margin-top: -5%;
     }
     @media (max-width: 860px) {
       .hero__right { height: 480px; margin-left: 0; }
@@ -878,7 +878,7 @@
   <!-- BIO -->
   <section class="bio">
     <div class="bio__photo">
-      <img src="Photos of Me/DSC03659 - 1.jpg" alt="Ali Mosadeq" width="400" height="560" />
+      <img src="Photos of Me/DSC03588.jpg" alt="Ali Mosadeq" width="400" height="560" />
     </div>
     <div class="bio__content">
       <p class="sub-label">Your broker</p>
@@ -967,7 +967,8 @@
           first_name: firstName,
           guide:      GUIDE_NAME,
           pdf_url:    PDF_URL
-        }).catch(function () {});
+        }).then(function(r){ console.log('[Guide email] OK', r); })
+          .catch(function(e){ console.error('[Guide email] FAILED', e); });
 
         // 2. Send lead to BoldTrail CRM
         emailjs.send('service_bbwchcs', 'template_kusoys9', {
@@ -977,7 +978,8 @@
           phone:      phone,
           source:     SOURCE,
           guide:      GUIDE_NAME
-        }).catch(function () {});
+        }).then(function(r){ console.log('[KvCore] OK', r); })
+          .catch(function(e){ console.error('[KvCore] FAILED', e); });
 
         // 2. POST to Mailchimp (no-cors)
         var mcData = new URLSearchParams();
