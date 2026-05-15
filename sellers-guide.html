@@ -971,6 +971,16 @@
           pdf_url:    PDF_URL
         }).catch(function () {});
 
+        // 2. Send lead to BoldTrail CRM
+        emailjs.send('service_bbwchcs', 'template_kusoys9', {
+          first_name: firstName,
+          last_name:  lastName,
+          lead_email: email,
+          phone:      phone,
+          source:     SOURCE,
+          guide:      GUIDE_NAME
+        }).catch(function () {});
+
         // 2. POST to Mailchimp (no-cors)
         var mcData = new URLSearchParams();
         mcData.append('EMAIL', email);

@@ -5,9 +5,10 @@
 /* ----------------------------------------------------------------
    CONFIGURATION
    ---------------------------------------------------------------- */
-const EMAILJS_SERVICE_ID  = 'service_bbwchcs';
-const EMAILJS_TEMPLATE_ID = 'template_hki5xaq';
-const EMAILJS_PUBLIC_KEY  = 'K-ECtUr7gFNZlFazk';
+const EMAILJS_SERVICE_ID    = 'service_bbwchcs';
+const EMAILJS_TEMPLATE_ID   = 'template_hki5xaq';
+const EMAILJS_KVCORE_ID     = 'template_kusoys9';
+const EMAILJS_PUBLIC_KEY    = 'K-ECtUr7gFNZlFazk';
 const MAILCHIMP_ACTION    = 'https://sellwithali.us12.list-manage.com/subscribe/post?u=bbec6c466a3dc85718f370737&id=676e7da8f8&f_id=009ed8e8f0';
 const SITE_URL            = 'https://sellwithali-website.onrender.com'; // update to sellwithali.com when live
 
@@ -90,6 +91,22 @@ function buildPayload(formData, source, pdfPath) {
   };
 }
 
+async function submitToKvCore(payload) {
+  if (!EMAILJS_PUBLIC_KEY) return;
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_KVCORE_ID, {
+      first_name: payload.first_name,
+      last_name:  payload.last_name,
+      lead_email: payload.email,
+      phone:      payload.phone,
+      source:     payload.source,
+      guide:      payload.guide,
+    });
+  } catch (err) {
+    console.warn('[KvCore] Submission error:', err);
+  }
+}
+
 async function submitToEmailJS(payload) {
   if (!EMAILJS_PUBLIC_KEY || !payload.pdf_url) return;
   try {
@@ -148,6 +165,9 @@ document.querySelectorAll('form[data-form]').forEach(form => {
     if (source === 'resource') {
       tasks.push(submitToEmailJS(payload));
     }
+
+    // Send lead to BoldTrail CRM for all forms
+    tasks.push(submitToKvCore(payload));
 
     // Subscribe to Mailchimp for newsletter and resource forms
     if (source === 'newsletter' || source === 'resource') {
