@@ -24,7 +24,7 @@
      Update this to your live domain once it's connected.
      It's used to build the guide download link sent in emails.
    ---------------------------------------------------------------- */
-const ZAPIER_WEBHOOK    = 'https://hooks.zapier.com/hooks/catch/20575962/4y7t6cg/';
+const ZAPIER_WEBHOOK    = 'https://hook.us2.make.com/7qlzfarbv6ius9wr5dqkeou12i9l6142';
 const MAILCHIMP_ACTION  = 'https://sellwithali.us12.list-manage.com/subscribe/post?u=bbec6c466a3dc85718f370737&id=676e7da8f8&f_id=009ed8e8f0';
 const SITE_URL          = 'https://sellwithali-website.onrender.com'; // update to sellwithali.com when live
 
