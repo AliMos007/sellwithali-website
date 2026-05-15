@@ -22,6 +22,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('K-ECtUr7gFNZlFazk');</script>
 
   <style>
     :root {
@@ -932,7 +934,6 @@
 
   <script>
     (function () {
-      var ZAPIER_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/20575962/4y7t6cg/';
       var MAILCHIMP_ACTION = 'https://sellwithali.us12.list-manage.com/subscribe/post?u=bbec6c466a3dc85718f370737&id=676e7da8f8&f_id=009ed8e8f0';
       var GUIDE_NAME = 'Move-Up Method';
       var PDF_URL = 'https://sellwithali-website.onrender.com/guides/sellers-guide.pdf';
@@ -962,22 +963,13 @@
         btn.disabled = true;
         btn.textContent = 'Sending…';
 
-        // 1. POST to Zapier webhook
-        fetch(ZAPIER_WEBHOOK, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            first_name: firstName,
-            last_name: lastName,
-            email: email,
-            phone: phone,
-            source: SOURCE,
-            guide: GUIDE_NAME,
-            pdf_url: PDF_URL
-          })
-        }).catch(function () {
-          // silent — still show success to user
-        });
+        // 1. Send guide email to lead via EmailJS
+        emailjs.send('service_bbwchcs', 'template_hki5xaq', {
+          to_email:   email,
+          first_name: firstName,
+          guide:      GUIDE_NAME,
+          pdf_url:    PDF_URL
+        }).catch(function () {});
 
         // 2. POST to Mailchimp (no-cors)
         var mcData = new URLSearchParams();

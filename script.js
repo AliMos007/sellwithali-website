@@ -3,30 +3,13 @@
    ============================================================ */
 
 /* ----------------------------------------------------------------
-   CONFIGURATION — paste your keys here
-   ----------------------------------------------------------------
-
-   ZAPIER_WEBHOOK
-     In Zapier: New Zap → Trigger: Webhooks by Zapier (Catch Hook)
-     Copy the webhook URL and paste below.
-     Then add two Actions to the same Zap:
-       1. Your CRM (search for it in Zapier apps)
-       2. Gmail / Outlook → Send Email  (use {{pdf_url}} in the body
-          so the lead receives their guide link automatically)
-
-   MAILCHIMP_ACTION
-     In Mailchimp: Audience → Signup forms → Embedded forms
-     Copy the form action URL (looks like:
-     https://xxxx.us1.list-manage.com/subscribe/post?u=XXXX&id=XXXX)
-     and paste below.
-
-   SITE_URL
-     Update this to your live domain once it's connected.
-     It's used to build the guide download link sent in emails.
+   CONFIGURATION
    ---------------------------------------------------------------- */
-const ZAPIER_WEBHOOK    = 'https://hook.us2.make.com/7qlzfarbv6ius9wr5dqkeou12i9l6142';
-const MAILCHIMP_ACTION  = 'https://sellwithali.us12.list-manage.com/subscribe/post?u=bbec6c466a3dc85718f370737&id=676e7da8f8&f_id=009ed8e8f0';
-const SITE_URL          = 'https://sellwithali-website.onrender.com'; // update to sellwithali.com when live
+const EMAILJS_SERVICE_ID  = 'service_bbwchcs';
+const EMAILJS_TEMPLATE_ID = 'template_hki5xaq';
+const EMAILJS_PUBLIC_KEY  = 'K-ECtUr7gFNZlFazk';
+const MAILCHIMP_ACTION    = 'https://sellwithali.us12.list-manage.com/subscribe/post?u=bbec6c466a3dc85718f370737&id=676e7da8f8&f_id=009ed8e8f0';
+const SITE_URL            = 'https://sellwithali-website.onrender.com'; // update to sellwithali.com when live
 
 /* ----------------------------------------------------------------
    NAV — Scroll behaviour: transparent → frosted white on scroll
@@ -107,16 +90,17 @@ function buildPayload(formData, source, pdfPath) {
   };
 }
 
-async function submitToZapier(payload) {
-  if (!ZAPIER_WEBHOOK) return;
+async function submitToEmailJS(payload) {
+  if (!EMAILJS_PUBLIC_KEY || !payload.pdf_url) return;
   try {
-    await fetch(ZAPIER_WEBHOOK, {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify(payload),
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      to_email:   payload.email,
+      first_name: payload.first_name,
+      guide:      payload.guide,
+      pdf_url:    payload.pdf_url,
     });
   } catch (err) {
-    console.warn('[Zapier] Submission error:', err);
+    console.warn('[EmailJS] Submission error:', err);
   }
 }
 
@@ -158,9 +142,14 @@ document.querySelectorAll('form[data-form]').forEach(form => {
     const pdfPath   = form.dataset.pdf || '';
     const payload   = buildPayload(formData, source, pdfPath);
 
-    const tasks = [submitToZapier(payload)];
+    const tasks = [];
 
-    // Also subscribe to Mailchimp for newsletter and resource forms
+    // Send guide email to lead via EmailJS for resource forms
+    if (source === 'resource') {
+      tasks.push(submitToEmailJS(payload));
+    }
+
+    // Subscribe to Mailchimp for newsletter and resource forms
     if (source === 'newsletter' || source === 'resource') {
       tasks.push(submitToMailchimp(payload.email, payload.first_name, payload.last_name));
     }

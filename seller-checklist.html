@@ -22,6 +22,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('K-ECtUr7gFNZlFazk');</script>
 
   <style>
     :root {
@@ -846,20 +848,32 @@
             ║  Remove placeholder form below        ║
             ╚══════════════════════════════════════╝
           -->
-          <!-- PLACEHOLDER FORM -->
-          <form class="optin-form" onsubmit="return false;">
+          <form class="optin-form" id="sc-form">
             <div>
-              <label class="optin-form__label" for="p-fname">First Name</label>
-              <input class="optin-form__input" type="text" id="p-fname" placeholder="Your first name" autocomplete="given-name" />
+              <label class="optin-form__label" for="sc-fname">First Name</label>
+              <input class="optin-form__input" type="text" id="sc-fname" placeholder="Your first name" autocomplete="given-name" required />
             </div>
             <div>
-              <label class="optin-form__label" for="p-email">Email Address</label>
-              <input class="optin-form__input" type="email" id="p-email" placeholder="you@example.com" autocomplete="email" />
+              <label class="optin-form__label" for="sc-lname">Last Name</label>
+              <input class="optin-form__input" type="text" id="sc-lname" placeholder="Your last name" autocomplete="family-name" />
             </div>
-            <button class="optin-form__btn" type="submit">Send Me the Checklist</button>
+            <div>
+              <label class="optin-form__label" for="sc-email">Email Address</label>
+              <input class="optin-form__input" type="email" id="sc-email" placeholder="you@example.com" autocomplete="email" required />
+            </div>
+            <div>
+              <label class="optin-form__label" for="sc-phone">Phone (optional)</label>
+              <input class="optin-form__input" type="tel" id="sc-phone" placeholder="647 000 0000" autocomplete="tel" />
+            </div>
+            <button class="optin-form__btn" type="submit" id="sc-btn">Send Me the Checklist</button>
             <p class="optin-form__note">Your information is private and will never be shared.</p>
           </form>
-          <p class="optin-form__calendly">
+          <div id="sc-success" style="display:none; color:#fff; text-align:center; padding:2rem 0;">
+            <p style="font-size:2rem; margin-bottom:0.5rem;">✓</p>
+            <p style="font-family:'Jost',sans-serif; font-size:1rem; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.5rem;">Check Your Inbox!</p>
+            <p style="font-size:0.95rem; opacity:0.75;">Your checklist is on its way — check your email.</p>
+          </div>
+          <p class="optin-form__calendly" id="sc-calendly-link">
             Rather talk first? &nbsp;<a href="https://calendly.com/brokerali/" target="_blank" rel="noopener">Book a free 15-min call →</a>
           </p>
         </div>
@@ -946,5 +960,47 @@
     </div>
   </footer>
 
+  <script>
+    (function () {
+      var MAILCHIMP_ACTION = 'https://sellwithali.us12.list-manage.com/subscribe/post?u=bbec6c466a3dc85718f370737&id=676e7da8f8&f_id=009ed8e8f0';
+      var GUIDE_NAME = 'The Home Selling Checklist';
+      var PDF_URL = 'https://sellwithali-website.onrender.com/guides/sellers-checklist.pdf';
+
+      var form = document.getElementById('sc-form');
+      var btn = document.getElementById('sc-btn');
+      var successEl = document.getElementById('sc-success');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var firstName = document.getElementById('sc-fname').value.trim();
+        var lastName  = document.getElementById('sc-lname').value.trim();
+        var email     = document.getElementById('sc-email').value.trim();
+        var phone     = document.getElementById('sc-phone').value.trim();
+        if (!firstName || !email) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+
+        // Send guide email to lead via EmailJS
+        emailjs.send('service_bbwchcs', 'template_hki5xaq', {
+          to_email:   email,
+          first_name: firstName,
+          guide:      GUIDE_NAME,
+          pdf_url:    PDF_URL
+        }).catch(function () {});
+
+        // Subscribe to Mailchimp
+        var mcData = new URLSearchParams();
+        mcData.append('EMAIL', email);
+        mcData.append('FNAME', firstName);
+        mcData.append('LNAME', lastName);
+        mcData.append('b_bbec6c466a3dc85718f370737_676e7da8f8', '');
+        fetch(MAILCHIMP_ACTION, { method: 'POST', mode: 'no-cors', body: mcData }).catch(function () {});
+
+        form.style.display = 'none';
+        successEl.style.display = 'block';
+      });
+    })();
+  </script>
 </body>
 </html>
