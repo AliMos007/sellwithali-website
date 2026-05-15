@@ -971,7 +971,7 @@
           .catch(function(e){ console.error('[Guide email] FAILED', e); });
 
         // 2. Send lead to BoldTrail CRM via direct API
-        fetch('https://api.kvcore.com/v2/public/contacts', {
+        fetch('https://api.kvcore.com/v2/public/leads', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

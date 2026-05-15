@@ -170,7 +170,7 @@
       height: 130%;
       object-fit: cover;
       object-position: center top;
-      margin-top: -20%;
+      margin-top: -5%;
     }
     @media (max-width: 860px) {
       .hero__right { height: 480px; margin-left: 0; }
@@ -884,7 +884,7 @@
   <!-- BIO -->
   <section class="bio">
     <div class="bio__photo">
-      <img src="Photos of Me/DSC03659 - 1.jpg" alt="Ali Mosadeq" width="400" height="560" />
+      <img src="Photos of Me/DSC03588.jpg" alt="Ali Mosadeq" width="400" height="560" />
     </div>
     <div class="bio__content">
       <p class="sub-label">Your broker</p>
@@ -990,7 +990,7 @@
         }).catch(function () {});
 
         // Send lead to BoldTrail CRM via direct API
-        fetch('https://api.kvcore.com/v2/public/contacts', {
+        fetch('https://api.kvcore.com/v2/public/leads', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
