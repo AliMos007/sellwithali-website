@@ -7,7 +7,7 @@
    ---------------------------------------------------------------- */
 const EMAILJS_SERVICE_ID    = 'service_bbwchcs';
 const EMAILJS_TEMPLATE_ID   = 'template_hki5xaq';
-const BOLDTRAIL_API_TOKEN   = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEyNzg5ODksImlhdCI6MTc3MjY4OTM1MywiZXhwIjoxODA0MjI1MzUzLCJuYmYiOjE3NzI2ODkzNTMsImF1ZCI6IioiLCJhY3QiOjcwOTUsImp0aSI6IjM2MzAzZGVhMTMyMjNjNTI0MjRmNzg5NjVlZmNkMTg5In0.IDwp5NM4gTNLFcARSd2sclwGMKvKVMj7G-aLHGxL08U';
+const PIPEDREAM_URL         = 'https://eojcv7jttemflce.m.pipedream.net';
 const EMAILJS_PUBLIC_KEY    = 'K-ECtUr7gFNZlFazk';
 const MAILCHIMP_ACTION    = 'https://sellwithali.us12.list-manage.com/subscribe/post?u=bbec6c466a3dc85718f370737&id=676e7da8f8&f_id=009ed8e8f0';
 const SITE_URL            = 'https://sellwithali-website.onrender.com'; // update to sellwithali.com when live
@@ -93,12 +93,9 @@ function buildPayload(formData, source, pdfPath) {
 
 async function submitToKvCore(payload) {
   try {
-    const res = await fetch('https://api.kvcore.com/v2/public/contacts', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${BOLDTRAIL_API_TOKEN}`,
-      },
+    await fetch(PIPEDREAM_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email:      payload.email,
         first_name: payload.first_name,
@@ -106,9 +103,9 @@ async function submitToKvCore(payload) {
         phone:      payload.phone,
       }),
     });
-    console.log('[BoldTrail API]', res.status);
+    console.log('[BoldTrail] sent to Pipedream');
   } catch (err) {
-    console.warn('[BoldTrail API] error:', err);
+    console.warn('[BoldTrail] Pipedream error:', err);
   }
 }
 

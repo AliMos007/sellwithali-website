@@ -971,16 +971,12 @@
           pdf_url:    PDF_URL
         }).catch(function () {});
 
-        // 2. Send lead to BoldTrail CRM via direct API
-        fetch('https://api.kvcore.com/v2/public/contacts', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEyNzg5ODksImlhdCI6MTc3MjY4OTM1MywiZXhwIjoxODA0MjI1MzUzLCJuYmYiOjE3NzI2ODkzNTMsImF1ZCI6IioiLCJhY3QiOjcwOTUsImp0aSI6IjM2MzAzZGVhMTMyMjNjNTI0MjRmNzg5NjVlZmNkMTg5In0.IDwp5NM4gTNLFcARSd2sclwGMKvKVMj7G-aLHGxL08U',
-          },
+        // 2. Send lead to BoldTrail via Pipedream proxy
+        fetch('https://eojcv7jttemflce.m.pipedream.net', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: email, first_name: firstName, last_name: lastName, phone: phone }),
-        }).then(function(r){ console.log('[BoldTrail API]', r.status); })
-          .catch(function(e){ console.error('[BoldTrail API] error', e); });
+        }).catch(function(e){ console.error('[BoldTrail] Pipedream error', e); });
 
         // 2. POST to Mailchimp (no-cors)
         var mcData = new URLSearchParams();
